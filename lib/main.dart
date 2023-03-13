@@ -42,8 +42,8 @@ class _MyAppState extends State<MyApp> {
         child: Column(
           children: [
             Container(
-              height: 440,
-              width: 340,
+              height: 600,
+              width: 400,
               color: Colors.black12,
               child: file == null
                   ? Icon(
@@ -55,28 +55,25 @@ class _MyAppState extends State<MyApp> {
                 fit: BoxFit.fill,
               ),
             ),
-            MaterialButton(
-              onPressed: () {
-                getgall();
-              },
-              color: Colors.blue[900],
-              child: Text(
-                "Upload from Gallery",
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            MaterialButton(
+
+            ElevatedButton(
               onPressed: () {
                 getcam();
               },
-              color: Colors.blue[900],
-              child: Text(
-                "Click from Camera",
-                style: TextStyle(
-                  color: Colors.white,
-                ),
+              child: const Icon(Icons.camera_alt),
+              style: ElevatedButton.styleFrom(
+                shape: CircleBorder(),
+                fixedSize: Size(50, 50),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                getgall();
+              },
+              child: const Icon(Icons.description),
+              style: ElevatedButton.styleFrom(
+                shape: CircleBorder(),
+                fixedSize: Size(50, 50),
               ),
             ),
           ],
