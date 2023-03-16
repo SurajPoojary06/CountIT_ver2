@@ -1,10 +1,11 @@
-
 import 'dart:io';
-import 'navbar.dart';
-import 'details.dart';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:camera/Camera.dart';
 
+import 'camera/Camera.dart';
+import 'gallery/Gallery.dart';
 void main() {
   runApp(k());
 }
@@ -34,21 +35,20 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: navbar(),
       appBar: AppBar(
-        title: Text("CountIT"),
+        title: Text("WebFun"),
       ),
       body: Center(
         child: Column(
           children: [
             Container(
-              height: 600,
-              width: 400,
+              height: 140,
+              width: 180,
               color: Colors.black12,
               child: file == null
-                  ? Icon(
+                  ? const Icon(
                 Icons.image,
-                size: 70,
+                size: 50,
               )
                   : Image.file(
                 file!,
@@ -56,45 +56,47 @@ class _MyAppState extends State<MyApp> {
               ),
             ),
 
+            // MaterialButton(
+            //   onPressed: () {
+            //     getgall();
+            //   },
+            //   color: Colors.blue[600],
+            //   shape: ,
+            //
+            //   child: Text(
+            //     "take from gallery",
+            //     style: TextStyle(
+            //       color: Colors.white,
+            //     ),
+            //   ),
+            // ),
+
             ElevatedButton(
               onPressed: () {
-                getcam();
+                Gallery().getGal();
               },
-              child: const Icon(Icons.camera_alt),
+              child: Text('Gallery'),
               style: ElevatedButton.styleFrom(
                 shape: CircleBorder(),
-                fixedSize: Size(50, 50),
+                fixedSize: Size(100, 200),
               ),
             ),
-            ElevatedButton(
+
+            MaterialButton(
               onPressed: () {
-                getgall();
+                Camera().getCam();
               },
-              child: const Icon(Icons.description),
-              style: ElevatedButton.styleFrom(
-                shape: CircleBorder(),
-                fixedSize: Size(50, 50),
+              color: Colors.blue[900],
+              child: Text(
+                "take from camera",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
               ),
             ),
           ],
         ),
       ),
     );
-  }
-
-  getcam() async {
-    // ignore: deprecated_member_use
-    var img = await image.getImage(source: ImageSource.camera);
-    setState(() {
-      file = File(img!.path);
-    });
-  }
-
-  getgall() async {
-    // ignore: deprecated_member_use
-    var img = await image.getImage(source: ImageSource.gallery);
-    setState(() {
-      file = File(img!.path);
-    });
   }
 }
