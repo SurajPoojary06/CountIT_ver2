@@ -1,52 +1,23 @@
-
 import 'package:flutter/material.dart';
-// import 'package:image_picker/image_picker.dart';
-import 'dart:io';
-import 'info.dart';
-
-
-// //Main (First) Page
-void main() {
-  runApp(const MaterialApp(
-    title: 'count',
-    home: DisplayPage(),
-    debugShowCheckedModeBanner: false,
-  ));
-}
 
 class DisplayPage extends StatelessWidget {
-  const DisplayPage({super.key});
-
-
+  final List<Rect> boundingBoxes;
+  DisplayPage({required this.boundingBoxes}) ;
 
   @override
-
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('COUNT DISPLAY'),
+        title: Text('0uput Screen'),
       ),
-      body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-
-            ElevatedButton(
-              child: const Text('count'),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder:(context) =>  MyApp()));
-              },
-            ),
-          ],
-        ),
+      body: ListView.builder(
+        itemCount: boundingBoxes.length,
+        itemBuilder: (BuildContext context, int index) {
+          return ListTile(
+            title: Text(boundingBoxes[index].toString()),
+          );
+        },
       ),
     );
   }
 }
-
-
-
-
-
-
