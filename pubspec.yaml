@@ -1,6 +1,5 @@
-name: combined
+name: statetry
 description: A new Flutter project.
-
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -20,7 +19,8 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.18.2 <3.0.0'
+  sdk: '>=2.19.2 <3.0.0'
+
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -31,8 +31,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  image_picker: ^0.8.4+3
-
+  http: ^0.13.3
+  requests: ^4.7.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -40,8 +40,19 @@ dependencies:
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
+  flutter_launcher_icons: "^0.12.0"
   flutter_test:
     sdk: flutter
+  camera: ^0.10.3+2
+  cupertino_icons: ^1.0.2
+  image_picker: ^0.8.4+3
+  full_screen_image: any
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/logo2.jpg"
+  min_sdk_android: 21
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -60,6 +71,10 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  assets:
+    - assets/images/logo2.jpg
+    - assets/images/logo.jpg
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:
