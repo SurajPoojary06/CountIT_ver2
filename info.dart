@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:statetry/photo.dart';
+import './photo.dart';
 import 'dart:io';
 import './main.dart';
+import './boundingbox.dart';
 
-class MyApp extends StatelessWidget {
+class MyApp2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'COUNTIT',
       home: BoundingBoxSelector(),
-
       debugShowCheckedModeBanner: false,
     );
   }
@@ -50,10 +50,10 @@ class _BoundingBoxSelectorState extends State<BoundingBoxSelector> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Colors.pinkAccent,
-      //   title: Text('Bounding Box Selector'),
-      // ),
+      appBar: AppBar(
+        backgroundColor: Colors.pinkAccent,
+        title: Text('Image Selector'),
+      ),
       body: Column(
         children: [
 
@@ -84,31 +84,13 @@ class _BoundingBoxSelectorState extends State<BoundingBoxSelector> {
             },
             child: Stack(
               children: [
-                // Image.asset(
-                //   'assets/images/bg.jpg',
-                //   fit: BoxFit.cover,
-                //   height: double.infinity,
-                //   width: double.infinity,
-                // ),
                 if (_image != null)
                   Image.file(
                     _image!,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                     width: double.infinity,
                     height: double.infinity,
-                   // width: 500,
-                    //height: 650,
                   ),
-                ..._boundingBoxes.map((box) {
-                  return Positioned.fromRect(
-                    rect: box,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black, width: 2),
-                      ),
-                    ),
-                  );
-                }),
               ],
             ),
           ),
@@ -116,108 +98,33 @@ class _BoundingBoxSelectorState extends State<BoundingBoxSelector> {
         ],
       ),
 
-
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            builder: (BuildContext context) {
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  // ListTile(
-                  //   leading: Icon(Icons.camera_alt),
-                  //   title: Text('Take a picture'),
-                  //   onTap: () {
-                  //     Navigator.pop(context);
-                  //     _pickImage(ImageSource.camera);
-                  //   },
-                  // ),
-                  // ListTile(
-                  //   leading: Icon(Icons.image),
-                  //   title: Text('Choose from gallery'),
-                  //   onTap: () {
-                  //     Navigator.pop(context);
-                  //     _pickImage(ImageSource.gallery);
-                  //   },
-                  // ),
-                  ListTile(
-                    leading: Icon(Icons.exit_to_app),
-                    title: Text('Remove Bounding Boxes'),
-                    onTap: () {
-                      undo();
-                      Navigator.pop(context);
-                    },
-                  ),
-                  // ListTile(
-                  //   leading: Icon(Icons.arrow_forward),
-                  //   title: Text('Process'),
-                  //   onTap: () {
-                  //     Navigator.push(context,
-                  //         MaterialPageRoute(builder:(context) => DisplayPage(boundingBoxes: _boundingBoxes)));
-                  //   },
-                  // ),
-                  // ListTile(
-                  //   leading: Icon(Icons.archive_outlined),
-                  //   title: Text('Image'),
-                  //   onTap: () {
-                  //     Navigator.push(context,
-                  //         MaterialPageRoute(builder:(context) => imgPage(image: _image,boundingBoxes: _boundingBoxes)));
-                  //   },
-                  // ),
-                  ListTile(
-                    leading: Icon(Icons.archive_outlined),
-                    title: Text('Upload'),
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder:(context) => imgPage(image: _image,boundingBoxes: _boundingBoxes)));
-                    },
-                  // ),ListTile(
-                  //   leading: Icon(Icons.output),
-                  //   title: Text('count'),
-                  //   onTap: () {
-                  //     Navigator.push(context,
-                  //         MaterialPageRoute(builder:(context) => const NumberPage()));
-                  //   },
-                  // ),
-                  ),],
-              );
-            },
-          );
-        },
-        tooltip: 'Select Image',
-        child: Icon(Icons.edit),
-      ),
       bottomNavigationBar: BottomAppBar(
         color: Colors.pinkAccent,
-        height:65,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             IconButton(
-              icon: Icon(Icons.home),
+              icon: Icon(Icons.image),
               iconSize: 30,
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder:(context) =>  FirstRoute()));
-                // Code to execute when home icon is pressed
+                _pickImage(ImageSource.gallery);
               },
             ),
             IconButton(
               icon: Icon(Icons.camera_alt),
               iconSize: 30,
               onPressed: () {
-
                 _pickImage(ImageSource.camera);
-                // Code to execute when search icon is pressed
               },
             ),
             IconButton(
-              icon: Icon(Icons.image),
+              icon: Icon(Icons.arrow_forward),
               iconSize: 30,
               onPressed: () {
-                _pickImage(ImageSource.gallery);
-                // Code to execute when person icon is pressed
+              Future.delayed(Duration(seconds: 1), () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder:(context) =>  Bbpage(image: _image)));
+    });
               },
             ),
           ],

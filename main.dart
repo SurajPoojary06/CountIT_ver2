@@ -1,105 +1,76 @@
 import 'package:flutter/material.dart';
-// import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'info.dart';
+import 'dart:async';
 
-
-//Main (First) Page
 void main() {
-  runApp(const MaterialApp(
-    title: 'count',
-    home: FirstRoute(),
+  runApp(MaterialApp(
+    title: 'CountIT Application',
+    home: MyApp(),
     debugShowCheckedModeBanner: false,
+    theme: ThemeData.dark(),
   ));
 }
 
-
-
-class FirstRoute extends StatelessWidget {
-  const FirstRoute({super.key});
-
-
+// Create a new stateless widget for the splash screen
+class SplashScreen extends StatelessWidget {
   @override
-
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('CountIt',
-          style: TextStyle(fontFamily: 'Montserrat',color: Colors.black87, fontWeight: FontWeight.bold),
+      body: Center(
+        child: Image.asset(
+          'assets/images/app_icon_1.jpeg',
+          fit: BoxFit.cover,
+          height: 400,
+          width: 300,
         ),
-        backgroundColor: Colors.white70,
       ),
-
-      body: Stack(
-
-
-         // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-
-
-            Image.asset(
-                'assets/images/bg.jpg',
-                fit: BoxFit.cover,
-                height: double.infinity,
-                width: double.infinity,
-              ),
-            Positioned(
-              bottom: 350.0, // set the position of the button from the bottom
-              right: 146.0, // set the position of the button from the right
-              child: ElevatedButton(
-
-                onPressed: () {
-                  // handle button press
-                  Navigator.push(context,
-                      MaterialPageRoute(builder:(context) =>  MyApp()));
-                },
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.white, // set the background color of the button
-                ),
-                child: Text('CountIt',style: TextStyle(
-                  fontSize: 25.0,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Arial',
-                  color: Colors.black45,
-                ),),
-              ),
-            ),
-          ],
-
+    );
+  }
+}
+// Create a new stateless widget for the home screen
+class HomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // Set the background color of the home screen
+    return Container(
+      color: Colors.white,
+      child: Center(
+        child: Text(
+          'Home Screen',
+          style: TextStyle(
+            fontSize: 30.0,
+            color: Colors.blue,
+          ),
+        ),
       ),
-    bottomNavigationBar: BottomAppBar(
-    color: Colors.blue,
-    child: Row(
-    mainAxisAlignment: MainAxisAlignment.spaceAround,
-    children: <Widget>[
-    IconButton(
-    icon: Icon(Icons.home),
-    onPressed: () {
-      Navigator.push(context,
-          MaterialPageRoute(builder:(context) =>  MyApp()));
-    // Code to execute when home icon is pressed
-    },
-    ),
-    IconButton(
-    icon: Icon(Icons.search),
-    onPressed: () {
-      Navigator.push(context,
-          MaterialPageRoute(builder:(context) =>  MyApp()));
-    // Code to execute when search icon is pressed
-    },
-    ),
-    IconButton(
-    icon: Icon(Icons.person),
-    onPressed: () {
-    // Code to execute when person icon is pressed
-    },
-    ),
-    ],
-    ),
-    ),
     );
   }
 }
 
+// Create a new stateful widget for the app
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
 
+// Create a new state for the app
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    // Wait for 3 seconds and then navigate to the home screen
+    Timer(Duration(seconds: 3), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => BoundingBoxSelector()),
+      );
+    });
+  }
 
+  @override
+  Widget build(BuildContext context) {
+    // Show the splash screen while waiting to navigate to the home screen
+    return SplashScreen();
+  }
+}
